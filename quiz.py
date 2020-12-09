@@ -59,7 +59,7 @@ def main():
 
    
    toWrite = "key.txt"
-   readFrom = ai_quizzes"
+   readFrom = "ai_quizzes"
 
     clearFile(toWrite)
     doTheThing(readFrom, toWrite)
