@@ -42,15 +42,20 @@ def clearFile(target):
 def doTheThing(folderToAccess,fileToWrite):
 
     quizList = os.listdir(folderToAccess)
+    quizList = sorted(quizList)
 
     if(platform.system() == "Linux"):
-        for quiz in quizList:
-            getQuestions((folderToAccess + "/" + quiz),fileToWrite)
+        for quizWeek in quizList:
+            week = os.listdir(folderToAccess + '/' + quizWeek)
+            for quiz in week:
+                getQuestions((folderToAccess + "/" + quizWeek + '/' + quiz),fileToWrite)
+
 
     elif (platform.system == "Windows"):
-        for quiz in quizList:
-            getQuestions((folderToAccess + "\\" + quiz),fileToWrite)
-
+        for quizWeek in quizList:
+            week = os.listdir(folderToAccess + '\\' + quizWeek)
+            for quiz in week:
+                getQuestions((folderToAccess + "\\" + quizWeek + '\\' + quiz),fileToWrite)
 
 
 def main():
