@@ -2,5 +2,5 @@
 key.txt
 study_guide_venv
 web_scraping.code-workspace
-#ai_quizzes
-#.gitignore
+ai_quizzes
+.gitignore
