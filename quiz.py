@@ -11,11 +11,10 @@ def noTags(foo):
     foo = str(foo).replace("</em>", "")
     return(foo)
 
-
 #Writes the questions of the file to the target file
-def getQuestions(quiz, type, target):
+def getQuestions(quiz, target):
 
-    outF = open(target,type)
+    outF = open(target,"a")
     soup = bs4.BeautifulSoup(open(quiz), "html.parser")
     questions = []
 
@@ -29,43 +28,40 @@ def getQuestions(quiz, type, target):
 
     #Writes the questions
     outF.write('\n\n----------------------------------------------\n')
-    outF.write( quiz + '\n\n')
+    #Change sunstring to length of the containing folder
+    outF.write( quiz[8:] + '\n\n')
     for foo in range(0,len(questions)):
-        outF.write(str(foo+1) + ')' + questions[foo] + '\n')
+        outF.write(str(foo+1) + ')' + questions[foo] + '\n\n')
     outF.close()
-
 
 #Clears the file
 def clearFile(target):
     open(target, 'w').close()
 
-
+#Does the thing with respect to the correct operating
 def doTheThing(folderToAccess,fileToWrite):
-
 
     quizList = os.listdir(folderToAccess)
 
     if(platform.system() == "Linux"):
         for quiz in quizList:
-            getQuestions((folderToAccess + "/" + quiz),'a',fileToWrite)
+            getQuestions((folderToAccess + "/" + quiz),fileToWrite)
 
     elif (platform.system == "Windows"):
         for quiz in quizList:
-            getQuestions((folderToAccess + "\\" + quiz),'a',fileToWrite)
+            getQuestions((folderToAccess + "\\" + quiz),fileToWrite)
 
 
 
 def main():
 
-   
-   toWrite = "key.txt"
-   readFrom = "ai_quizzes"
+    #Set equal to values you want to access
+    toWrite = "key.txt"
+    readFrom = "quizzes"
 
+    #Resets and then writes to the file
     clearFile(toWrite)
-    doTheThing(readFrom, toWrite)
-
-
-    
+    doTheThing("quizzes", toWrite)
 
 
 if __name__ == "__main__":
