@@ -1,15 +1,16 @@
 allVal = {
     'x' : True,
     'y' : False,
-    'z' : True
+    'z' : False
 }
 
 def main():
 
     phrase = input('enter: ')
 
-    print(parse(phrase))
+    print('answer = ' + str(parse(phrase)))
 
+    print('end')
     #precedence order is
     #not and or implies contra
 
@@ -18,6 +19,7 @@ def main():
 
 def parse(phrase):
 
+
     opCount = 0
 
     phrase = phrase.replace(' ', '')
@@ -25,34 +27,64 @@ def parse(phrase):
     #precedence order is
     #not and or implies contra
     
+
     #checks to see if there is only one operator 
     opCount = phrase.count('or') + phrase.count('and') +  phrase.count('<->') + phrase.count('->')
-    if opCount == 1:
-        return(eval(phrase,curOp(phrase)))
+    
+    opp = curOp(phrase)
+    try:
+        a = curVar(phrase.split(opp)[0])
+        print('a: ' + str(a))
+        b = curVar(phrase.split(opp)[1])
+        print('b: ' + str(b))
+    except IndexError:
+        print('b: n/a')
+
+    print('opp: ' + str(opp))
+    print('count: ' + str(opCount) + '\n')
+
+
+    if opCount == 0:
+        return(a)
+    elif opCount == 1:
+        return(eval(a,b,opp))
+
+
+    #reverse precedence order bc recursive calls
+    else:
+        return(eval(parse(phrase.split(opp)[0]),parse(phrase.split(opp)[1]), opp))
+
+        
+
+
+
 
 #returns a boolean corresponding with the current value
 def curVar(val):
-    return(allVal[val])
+    if(allVal.has_key(val)):
+        return(allVal[val])
 
 #returns the current operator(As a string)
 def curOp(phrase):
+    if (phrase.find('<->') != -1):
+        return('<->')
+    if (phrase.find('->') != -1):
+        return('->')
     if (phrase.find('or') != -1):
         return('or')
     if (phrase.find('and') != -1):
         return('and')
-    if (phrase.find('->') != -1):
-        return('->')
-    if (phrase.find('<->') != -1):
-        return('<->')
+
+
 
 
 
 #evaluates a boolean phrase consisting of two values and an operator
 #All tested and work
-def eval(phrase,operator):
+def eval(a,b,operator):
+    print('ea: ' + str(a))
+    print('eb: ' + str(b))
 
-    a = curVar(phrase.split(operator)[0])
-    b = curVar(phrase.split(operator)[1])
 
     #or
     if (operator == 'or'):
