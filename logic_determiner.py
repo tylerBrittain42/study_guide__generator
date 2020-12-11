@@ -1,7 +1,11 @@
+#ADD Paranthesis and negation
+
+
 allVal = {
     'x' : True,
     'y' : False,
-    'z' : False
+    'z' : True,
+    'a' : True
 }
 
 def main():
@@ -32,22 +36,22 @@ def parse(phrase):
     opCount = phrase.count('or') + phrase.count('and') +  phrase.count('<->') + phrase.count('->')
     
     opp = curOp(phrase)
-    try:
-        a = curVar(phrase.split(opp)[0])
-        print('a: ' + str(a))
-        b = curVar(phrase.split(opp)[1])
-        print('b: ' + str(b))
-    except IndexError:
-        print('b: n/a')
+    # try:
+    #     a = curVar(phrase.split(opp)[0])
+    #     print('a: ' + str(a))
+    #     b = curVar(phrase.split(opp)[1])
+    #     print('b: ' + str(b))
+    # except IndexError:
+    #     print('b: n/a')
 
-    print('opp: ' + str(opp))
-    print('count: ' + str(opCount) + '\n')
+    # print('opp: ' + str(opp))
+    # print('count: ' + str(opCount) + '\n')
 
 
     if opCount == 0:
-        return(a)
+        return(curVar(phrase.split(opp)[0]))
     elif opCount == 1:
-        return(eval(a,b,opp))
+        return(eval(curVar(phrase.split(opp)[0]),curVar(phrase.split(opp)[1]),opp))
 
 
     #reverse precedence order bc recursive calls
@@ -61,8 +65,7 @@ def parse(phrase):
 
 #returns a boolean corresponding with the current value
 def curVar(val):
-    if(allVal.has_key(val)):
-        return(allVal[val])
+    return(allVal[val])
 
 #returns the current operator(As a string)
 def curOp(phrase):
