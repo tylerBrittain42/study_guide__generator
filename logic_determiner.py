@@ -65,19 +65,22 @@ def parse(phrase):
 
 #returns a boolean corresponding with the current value
 def curVar(val):
-    return(allVal[val])
+
+    if(val.find('not') == -1):
+        return(allVal[val])
+    else:
+        return(not allVal[val.split('not')[1]])
 
 #returns the current operator(As a string)
 def curOp(phrase):
     if (phrase.find('<->') != -1):
         return('<->')
-    if (phrase.find('->') != -1):
+    elif (phrase.find('->') != -1):
         return('->')
-    if (phrase.find('or') != -1):
+    elif (phrase.find('or') != -1):
         return('or')
-    if (phrase.find('and') != -1):
+    elif (phrase.find('and') != -1):
         return('and')
-
 
 
 
@@ -110,6 +113,7 @@ def eval(a,b,operator):
             return(True)
         else:
             return(False)
+
 
 
 if __name__ == "__main__":
