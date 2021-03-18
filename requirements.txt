@@ -1,0 +1,8 @@
+#(using pip freeze to grab requirements)
+
+beautifulsoup4==4.9.3
+bs4==0.0.1
+html5lib==1.1
+six==1.15.0
+soupsieve==2.0.1
+webencodings==0.5.1
