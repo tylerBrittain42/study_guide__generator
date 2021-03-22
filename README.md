@@ -7,4 +7,4 @@ This script is intended to take questions from various quizzes and have them all
  The way this program works is by iterating through all of the subfolders of a directory because it assumes that you are structuring your quizzes by section.
 <br><br>
 **Potential Error**
-If the readFrom folder consists of anything, but subfiles the program will crash. To remedy this simply store all of your txt files into a subfolder such as "readFrom -> subfolder -> *.txt files" to remedy this issue.
+If the readFrom folder consists of anything, but subfiles the program will crash. To remedy this simply store all of your txt files into a subfolder such as "readFrom -> subfolder -> *.html files" to remedy this issue.
